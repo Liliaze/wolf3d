@@ -18,7 +18,7 @@ CFLAGS = -O3 -Weverything -Wall -Werror -Wextra
 FLAGS2 = -lmlx -framework OpenGL -framework AppKit
 HEADERS = ./includes/
 SRC = main.c tools.c loop.c read_map.c menu.c\
-	  raycasting.c move.c\
+	ray_skybox.c raycasting.c move.c\
 
 OBJS = $(patsubst %.c,%.o,$(addprefix $(PATH_SRC), $(SRC)))
 

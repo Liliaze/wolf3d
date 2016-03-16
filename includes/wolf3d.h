@@ -38,6 +38,7 @@
 # define AI		all->aimage
 # define AM		all->amap
 # define AP		all->aplay
+# define AB		all->abox
 # define AC		all->acam
 # define AR		all->aray
 # define AWALL	all->awall
@@ -57,6 +58,8 @@ typedef struct	s_image
 {
 	void		*id;
 	char		*data;
+	void		*id_box;
+	char		*data_box;
 	int			i_width;
 	int			i_height;
 	int			bpp;
@@ -76,6 +79,16 @@ typedef struct	s_map
 	int			mapy;
 	int			mapx;
 }				t_map;
+
+typedef struct	s_skybox
+{
+	char		***box;
+	char		*name_box;
+	int		nb_x_box;
+	int		nb_y_box;
+	int		boxy;
+	int		boxx;
+}		t_box;
 
 typedef struct	s_player
 {
@@ -125,6 +138,7 @@ typedef struct	s_all
 	t_win		*awin;
 	t_image		*aimage;
 	t_map		*amap;
+	t_box		*abox;
 	t_play		*aplay;
 	t_cam		*acam;
 	t_ray		*aray;
@@ -134,11 +148,13 @@ typedef struct	s_all
 
 int		ft_loop(t_all *all);
 int		open_map(t_map *amap, t_win *awin);
+int		open_box(t_box *abox, t_win *awin);
 void	draw_menu(t_win *awin, t_map *amap);
 void	display_error(t_win *awin, char *str, int code_error);
 void	print_map(t_map *amap); // A SUPP
+void	ray_skybox(t_all *all);
 void	raycasting(t_all *all);
-void	clear_image(t_image *aimg);
+void	clear_image(char *img, int last_pixel);
 void	move_forward(t_map *amap, t_play *aplay);
 void	move_backward(t_map *amap, t_play *aplay);
 void	rotate_left(t_cam *acam, t_play *aplay);

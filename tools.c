@@ -12,24 +12,17 @@
 
 # include "wolf3d.h"
 
-void	clear_image(t_image *aimg)
+void	clear_image(char *img, int last_pixel)
 {
 	int	i;
 	int	*tmp;
 
 	i = -1;
-	COLOR = CYAN;
-	tmp = (int*)(void*)DATA;
-	while (++i <= LAST_P / 2)
-		tmp[i] = COLOR % i;
-	COLOR = RED;
-	while (++i < LAST_P)
-	{
-		if ((i % 3) == 2)
-			tmp[i] = COLOR;
-		else
-			tmp[i] = COLOR / 2;
-	}
+	tmp = (int*)(void*)img; //previous is DATA.
+	while (++i <= last_pixel / 2)
+		tmp[i] = BLUE;
+	while (++i < last_pixel)
+		tmp[i] = GREEN;
 }
 
 void	display_error(t_win *awin, char *str, int code_error)
