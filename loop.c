@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:49:49 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/15 14:15:22 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/17 11:44:39 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ static void	refresh(t_all *all)
 {
 	mlx_clear_window(all->MLX, all->WIN);
 	clear_image(all->DATA, all->LAST_P);
-	clear_image(all->aimg->data_box, all->LAST_P);
 	ray_skybox(all);
 	raycasting(all);
-	mlx_put_image_to_window(all->MLX, all->WIN, all->aimage->id_box, 0, 0);
-	mlx_put_image_to_window(all->MLX, all->WIN, all->aimage->id, 0, 0);
+	mlx_put_image_to_window(all->MLX, all->WIN, all->aimg->id, 0, 0);
 }
 
 static	int key_press(int key, t_all *all)

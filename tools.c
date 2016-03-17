@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 15:12:19 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/15 15:27:40 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/17 11:39:56 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	clear_image(char *img, int last_pixel)
 	i = -1;
 	tmp = (int*)(void*)img; //previous is DATA.
 	while (++i <= last_pixel / 2)
-		tmp[i] = BLUE;
+		tmp[i] = PINK;
 	while (++i < last_pixel)
-		tmp[i] = GREEN;
+		tmp[i] = YELLOW;
 }
 
 void	display_error(t_win *awin, char *str, int code_error)

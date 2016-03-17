@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:38:17 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/15 20:16:12 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/17 11:15:30 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,17 @@ static void	choose_color(t_image *aimg, t_map *map, int *side)
 	if (tmp == 1)
 		COLOR = PINK;
 	else if (tmp == 2)
-		COLOR = GREEN;
+		COLOR = BROWN;
 	else if (tmp == 3)
-		COLOR = BLUE;
+		COLOR = PURPLE;
 	else if (tmp == 4)
 		COLOR = WHITE;
 	else
 		COLOR = YELLOW;
 	if (*side == 1)
 		COLOR = COLOR / 2;
-}/*
-static int	test(int a, int b)
-{
-	printf("[x = %d , y = %d] - ", a, b);
-	return (1);
-}*/
+}
+
 static int	check_side(t_ray *aray, t_map *map)
 {
 	int	hit;
@@ -108,12 +104,12 @@ static void	draw_height(t_image *aimg, t_win *awin, t_ray *aray, int x)
 	while (++y < WINH)
 	{
 		pixel = x + y * SIZE_L;
-		if (y < draw_start)
-			tmp[pixel] = CYAN * 2;
-		else if (y <= draw_end)
+//		if (y < draw_start)
+//			tmp[pixel] = CYAN * 2;
+/*		else */if (y <= draw_end && y >= draw_start)
 			tmp[pixel] = COLOR;
-		else if (y < WINH)
-			tmp[pixel] = GREENF;
+//		else if (y < WINH)
+//			tmp[pixel] = GREENF;
 	}
 }
 

@@ -6,7 +6,7 @@
 #    By: dboudy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/24 10:53:12 by dboudy            #+#    #+#              #
-#    Updated: 2016/03/15 19:46:06 by dboudy           ###   ########.fr        #
+#    Updated: 2016/03/17 10:32:14 by dboudy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ PATH_INC = libft/includes/
 CFLAGS = -O3 -Weverything -Wall -Werror -Wextra
 FLAGS2 = -lmlx -framework OpenGL -framework AppKit
 HEADERS = ./includes/
-SRC = main.c tools.c loop.c read_map.c menu.c\
+SRC = main.c tools.c loop.c read_box.c read_map.c menu.c\
 	ray_skybox.c raycasting.c move.c\
 
 OBJS = $(patsubst %.c,%.o,$(addprefix $(PATH_SRC), $(SRC)))

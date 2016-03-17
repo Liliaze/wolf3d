@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:38:17 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/15 20:16:12 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/17 11:44:43 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	check_distance(t_ray *ray, t_play *player, t_box *abox)
 	else
 	{
 		ray->stepx = 1;
-		ray->side_dist_x = (abox->boxx + 1.0 - player->posx) * ray->delta_dist_x;
+		ray->side_dist_x = (abox->boxx + 1.0 - player->posx)
+			* ray->delta_dist_x;
 	}
 	if (ray->ray_diry < 0)
 	{
@@ -32,24 +33,10 @@ static void	check_distance(t_ray *ray, t_play *player, t_box *abox)
 	else
 	{
 		ray->stepy = 1;
-		ray->side_dist_y = (abox->boxy + 1.0 - player->posy) * ray->delta_dist_y;
+		ray->side_dist_y = (abox->boxy + 1.0 - player->posy)
+			* ray->delta_dist_y;
 	}
 }
-/*
-static void	choose_color(t_image *aimg, t_box *abox, int *side)
-{
-	int tmp;
-
-	tmp = ft_atoi(abox->box[abox->boxx][abox->boxy]);
-	if (tmp == 6)
-		COLOR = CYAN; //texture etoile a implementer
-	else if (tmp == 7)
-		COLOR = GREENF;
-	else
-		COLOR = YELLOW;
-	if (*side == 1)
-		COLOR = COLOR / 2;
-}*/
 
 static int	check_side(t_ray *aray, t_box *abox)
 {
@@ -78,7 +65,7 @@ static int	check_side(t_ray *aray, t_box *abox)
 	return (side);
 }
 
-static void	draw_height(t_image *aimg, t_win *awin, t_ray *aray, int x)
+static void	draw_height(t_image *aimg, t_win *awin, int x)
 {
 	int draw_start;
 	int draw_end;
@@ -90,14 +77,16 @@ static void	draw_height(t_image *aimg, t_win *awin, t_ray *aray, int x)
 	draw_end = WINH - 1;
 	x = x * BPP;
 	y = -1;
-	tmp = (int*)(void*)aimg->data_box;
+	tmp = (int*)(void*)DATA;
 	while (++y <= draw_end)
 	{
 		pixel = x + y * SIZE_L;
-		if (y < draw_end / 2)
+		if (y < draw_end / 2 && (y % 2) )
+			tmp[pixel] = BLUE;
+		else if (y < draw_end / 2)
 			tmp[pixel] = CYAN;
 		else if (y <= draw_end)
-			tmp[pixel] = GREENF;
+			tmp[pixel] = YELLOW;
 	}
 }
 
@@ -121,15 +110,7 @@ void		ray_skybox(t_all *all)
 				(AR->ray_diry * AR->ray_diry));
 		check_distance(AR, AP, AB);
 		side = check_side(AR, AB);
-//need choice?		choose_color(AI, AB, &side);
-//need h?
-/*		if (side == 0)
-			AR->h_wall = fabs((AM->mapx - AP->posx + (1 - AR->stepx) / 2)
-				/ AR->ray_dirx);
-		else if (side == 1)
-			AR->h_wall = fabs((AM->mapy - AP->posy + (1 - AR->stepy) / 2)
-				/ AR->ray_diry);
-	*/	draw_height(AI, AWIN, AR, x);
+		draw_height(AI, AWIN, x);
 		x++;
 	}
 }

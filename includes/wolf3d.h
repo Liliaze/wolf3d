@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 17:20:14 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/15 16:33:30 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/17 11:45:02 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define LAST_P	aimg->last_pixel
 # define COLOR	aimg->color
 # define AWIN	all->awin
-# define AI		all->aimage
+# define AI		all->aimg
 # define AM		all->amap
 # define AP		all->aplay
 # define AB		all->abox
@@ -58,8 +58,6 @@ typedef struct	s_image
 {
 	void		*id;
 	char		*data;
-	void		*id_box;
-	char		*data_box;
 	int			i_width;
 	int			i_height;
 	int			bpp;
@@ -136,7 +134,7 @@ typedef struct	s_hook
 typedef struct	s_all
 {
 	t_win		*awin;
-	t_image		*aimage;
+	t_image		*aimg;
 	t_map		*amap;
 	t_box		*abox;
 	t_play		*aplay;
@@ -151,7 +149,6 @@ int		open_map(t_map *amap, t_win *awin);
 int		open_box(t_box *abox, t_win *awin);
 void	draw_menu(t_win *awin, t_map *amap);
 void	display_error(t_win *awin, char *str, int code_error);
-void	print_map(t_map *amap); // A SUPP
 void	ray_skybox(t_all *all);
 void	raycasting(t_all *all);
 void	clear_image(char *img, int last_pixel);

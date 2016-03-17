@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/02 15:35:50 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/15 16:36:44 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/17 10:37:24 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void		free_my_box(t_box *abox)
 	int j;
 
 	i = 0;
-	while (abox->skybox[i])
+	while (abox->box[i])
 	{
 		j = 0;
 		while (abox->box[i][j])
@@ -57,7 +57,7 @@ void			zmin_and_zmax(t_all *all)
 	}
 }
 */
-static int		look_size_map(t_box *abox, t_win *awin)
+static int		look_size_box(t_box *abox, t_win *awin)
 {
 	char	tmp[2];
 	ssize_t	ret;
@@ -85,7 +85,7 @@ static int		look_size_map(t_box *abox, t_win *awin)
 	return (1);
 }
 
-static void		nb_x(t_box *abox, char *line)
+static void		nb_x_box(t_box *abox, char *line)
 {
 	int	i;
 
@@ -96,7 +96,7 @@ static void		nb_x(t_box *abox, char *line)
 		while (line[i] == ' ' && line[i])
 			i++;
 		if (line[i] != ' ' && line[i])
-			abox->nb_x++;
+			abox->nb_x_box++;
 		while (line[i] != ' ' && line[i])
 			i++;
 	}
@@ -111,8 +111,8 @@ int			open_box(t_box *abox, t_win *awin)
 
 	i = -1;
 	if (abox->box)
-		free_my_map(abox);
-	if (!look_size_map(abox, awin))
+		free_my_box(abox);
+	if (!look_size_box(abox, awin))
 		return (0);
 	abox->box = (char***)malloc(sizeof(abox->box) * ((unsigned long)abox->nb_y_box + 1));
 	if ((fd = open(abox->name_box, O_RDONLY)) == -1)
@@ -122,7 +122,7 @@ int			open_box(t_box *abox, t_win *awin)
 		if ((get_next_line(fd, &line)) == -1)
 			display_error(awin, "Read of box failed\n", 1);
 		if (i == 0)
-			nb_x(abox, line);
+			nb_x_box(abox, line);
 		values = ft_strsplit(line, ' ');
 		abox->box[i] = values;
 		free(line);
