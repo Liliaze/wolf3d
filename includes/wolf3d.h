@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 17:20:14 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/17 11:45:02 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/24 17:33:46 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 # include "./color_and_key.h"
 # include <mlx.h>
 # include <math.h>
+# include <time.h>
 # include <fcntl.h>
 # include <sys/uio.h>
 # include <sys/types.h>
-# include <stdio.h> // A SUPPRIMER !!!!!
+# include <stdio.h>
 
 # define WIN	awin->win
 # define MLX	awin->mlx
@@ -41,7 +42,7 @@
 # define AB		all->abox
 # define AC		all->acam
 # define AR		all->aray
-# define AWALL	all->awall
+# define AT		all->atext
 # define AH		all->ahook
 
 typedef struct	s_win
@@ -80,13 +81,12 @@ typedef struct	s_map
 
 typedef struct	s_skybox
 {
-	char		***box;
-	char		*name_box;
-	int		nb_x_box;
-	int		nb_y_box;
-	int		boxy;
-	int		boxx;
-}		t_box;
+	char		**box;
+	int			nb_x_box;
+	int			nb_y_box;
+	int			boxy;
+	int			boxx;
+}				t_box;
 
 typedef struct	s_player
 {
@@ -94,8 +94,9 @@ typedef struct	s_player
 	double		posy;
 	double		dirx;
 	double		diry;
-//	double		speed;
+	double		speed;
 	double		coef_rot;
+	double		coef_motion;
 }				t_play;
 
 typedef struct	s_camera
@@ -108,27 +109,31 @@ typedef struct	s_camera
 
 typedef struct	s_ray
 {
-	double		ray_dirx;
-	double		ray_diry;
-	double		side_dist_x;
-	double		side_dist_y;
-	double		delta_dist_x;
-	double		delta_dist_y;
+	double		rdx;
+	double		rdy;
+	double		side_dx;
+	double		side_dy;
+	double		delta_dx;
+	double		delta_dy;
 	double		h_wall;
+	double		jump;
 	int			stepx;
 	int			stepy;
 }				t_ray;
 
-typedef struct	s_wall //if texture
+typedef struct	s_texture
 {
-	int			xpm;
-	int			pitch;
-}				t_wall;
+	void		*peg[16];
+	int			padtext;
+	int			anim;
+}				t_text;
 
 typedef struct	s_hook
 {
-	int			turn;
+	int			event;
+	int			button1;
 	int			mouse_x;
+	int			mouse_y;
 }				t_hook;
 
 typedef struct	s_all
@@ -140,20 +145,20 @@ typedef struct	s_all
 	t_play		*aplay;
 	t_cam		*acam;
 	t_ray		*aray;
-	t_wall		*awall;
+	t_text		*atext;
 	t_hook		*ahook;
 }				t_all;
 
-int		ft_loop(t_all *all);
-int		open_map(t_map *amap, t_win *awin);
-int		open_box(t_box *abox, t_win *awin);
-void	draw_menu(t_win *awin, t_map *amap);
-void	display_error(t_win *awin, char *str, int code_error);
-void	ray_skybox(t_all *all);
-void	raycasting(t_all *all);
-void	clear_image(char *img, int last_pixel);
-void	move_forward(t_map *amap, t_play *aplay);
-void	move_backward(t_map *amap, t_play *aplay);
-void	rotate_left(t_cam *acam, t_play *aplay);
-void	rotate_right(t_cam *acam, t_play *aplay);
+int				ft_loop(t_all *all);
+int				open_map(t_map *amap);
+int				create_skybox(t_box *abox, t_map *amap);
+int				refresh(t_all *all);
+int				move_player(t_all *all, int key);
+void			draw_menu(t_win *awin, t_map *amap);
+void			display_error(char *str) __attribute__((noreturn));
+void			ray_skybox(t_all *all);
+void			raycasting(t_all *all);
+void			init_texture(t_win *awin, t_text *atext);
+void			anim_pegasse(t_win *awin, t_text *atext);
+void			clear_image(char *img, int last_pixel);
 #endif

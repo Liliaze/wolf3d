@@ -5,60 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/02 15:35:50 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/15 16:36:44 by dboudy           ###   ########.fr       */
+/*   Created: 2016/03/18 15:02:06 by dboudy            #+#    #+#             */
+/*   Updated: 2016/03/24 12:53:38 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-static void		free_my_map(t_map *amap)
+static void	check_map(t_map *amap)
 {
-	int i;
-	int j;
+	int	y;
+	int x;
+	int tmp;
 
-	i = 0;
-	ft_putstr("\ndebut free ok\n"); // a sup
-	while (amap->map[i])
+	y = 0;
+	x = 0;
+	tmp = 0;
+	while (amap->map[y])
 	{
-		j = 0;
-		while (amap->map[i][j])
+		x = 0;
+		while (amap->map[y][x])
 		{
-			ft_memdel((void **)&amap->map[i][j]);
-			j++;
+			tmp = ft_atoi(amap->map[y][x]);
+			if ((y == 0 || y == amap->nb_y - 1 || x == 0
+						|| x == amap->nb_x - 1) && tmp <= 0)
+				display_error("Map invalid, need border");
+			if (!(tmp >= 0 && tmp <= 10))
+				display_error("Invalid data in map");
+			x++;
 		}
-		ft_memdel((void **)&amap->map[i]);
-		i++;
-	}
-	free(amap->map);
-	amap->map = NULL;
-	ft_putstr ("\nfin free ok\n"); // a sup
-}
-/*
-void			zmin_and_zmax(t_all *all)
-{
-	int i;
-	int j;
-
-	i = 0;
-	ZMAX = 0;
-	ZMIN = 0;
-	while (MAP[i])
-	{
-		j = 0;
-		while (MAP[i][j])
-		{
-			if (ft_atoi(MAP[i][j]) * COEFZ > ZMAX)
-				ZMAX = ft_atoi(MAP[i][j]) * COEFZ;
-			if (ft_atoi(MAP[i][j]) * COEFZ < ZMIN)
-				ZMIN = ft_atoi(MAP[i][j]) * COEFZ;
-			j++;
-		}
-		i++;
+		y++;
 	}
 }
-*/
-static int		look_size_map(t_map *amap, t_win *awin)
+
+static int	look_size_map(t_map *amap)
 {
 	char	tmp[2];
 	ssize_t	ret;
@@ -70,23 +50,23 @@ static int		look_size_map(t_map *amap, t_win *awin)
 	fd = 0;
 	boucle = 0;
 	if ((fd = open(amap->name, O_RDONLY)) == -1)
-		display_error(awin, "This map is empty or invalid", 1);
+		display_error("This map is empty or invalid");
 	while (ret > 0)
 	{
 		if ((ret = read(fd, tmp, 1)) < 0)
-			display_error(awin, "Read of map failed", 1);
+			display_error("Read of map failed");
 		if (*tmp == '\n' && ret != 0)
 			amap->nb_y++;
 		else
 			boucle++;
 	}
 	if (boucle == 1)
-		display_error(awin, "Map is empty", 1);
+		display_error("Map is empty");
 	close(fd);
 	return (1);
 }
 
-static void		nb_x(t_map *amap, char *line)
+static void	nb_x(t_map *amap, char *line)
 {
 	int	i;
 
@@ -103,7 +83,7 @@ static void		nb_x(t_map *amap, char *line)
 	}
 }
 
-int			open_map(t_map *amap, t_win *awin)
+int			open_map(t_map *amap)
 {
 	int		i;
 	int		fd;
@@ -111,17 +91,16 @@ int			open_map(t_map *amap, t_win *awin)
 	char	**values;
 
 	i = -1;
-	if (amap->map)
-		free_my_map(amap);
-	if (!look_size_map(amap, awin))
+	if (!look_size_map(amap))
 		return (0);
-	amap->map = (char***)malloc(sizeof(amap->map) * ((unsigned long)amap->nb_y + 1));
+	amap->map = (char***)malloc(sizeof(amap->map) *
+			((unsigned long)amap->nb_y + 1));
 	if ((fd = open(amap->name, O_RDONLY)) == -1)
-		display_error(awin, "Please join a correct map\n", 1);
+		display_error("Please join a correct map\n");
 	while (++i < amap->nb_y)
 	{
 		if ((get_next_line(fd, &line)) == -1)
-			display_error(awin, "Read of map failed\n", 1);
+			display_error("Read of map failed\n");
 		if (i == 0)
 			nb_x(amap, line);
 		values = ft_strsplit(line, ' ');
@@ -129,5 +108,6 @@ int			open_map(t_map *amap, t_win *awin)
 		free(line);
 	}
 	amap->map[i] = NULL;
+	check_map(amap);
 	return (1);
 }

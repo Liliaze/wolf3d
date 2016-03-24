@@ -6,64 +6,97 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:49:49 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/17 11:44:39 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/24 17:33:40 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-static void	refresh(t_all *all)
-{
-	mlx_clear_window(all->MLX, all->WIN);
-	clear_image(all->DATA, all->LAST_P);
-	ray_skybox(all);
-	raycasting(all);
-	mlx_put_image_to_window(all->MLX, all->WIN, all->aimg->id, 0, 0);
-}
-
-static	int key_press(int key, t_all *all)
+static int	key_press(int key, t_all *all)
 {
 	if (key == ECHAP)
 		exit(0);
-	else if (key == ENTER)
-		draw_menu(AWIN, AM);
-	else if (key == Q)
-		raycasting(all);
-	else if (key == UP)
-		move_forward(AM, AP);
-	else if (key == DOWN)
-		move_backward(AM, AP);
-	else if (key == LEFT)
-		rotate_left(AC, AP);
-	else if (key == RIGHT)
-		rotate_right(AC, AP);
-	refresh(all);
+	else if (all->awin->in_menu == 0)
+	{
+		if ((key == UP || key == W || key == DOWN || key == S || key == LEFT
+					|| key == A || key == RIGHT || key == D) && (AH->event = 1))
+			move_player(all, key);
+		else if (key == SPACE && AR->jump < 500 && (AH->event = 1))
+			AR->jump += 10;
+		else if (key == 6 && AR->jump > 0 && (AH->event = 1))
+			AR->jump -= 10;
+		else if (key == ENTER)
+			draw_menu(AWIN, AM);
+		else if (key == MORE || key == LESS)
+		{
+			if (key == MORE && AP->speed < 1.0)
+				AP->speed *= 1.2;
+			else if (key == LESS && AP->speed > 0.01)
+				AP->speed *= 0.8;
+			AP->coef_rot = AP->speed / 3;
+		}
+	}
+	else if (key == ENTER && (move_player(all, DOWN)) && (AH->event = 1))
+		all->awin->in_menu = 0;
+	return (0);
+}
+
+static int	mouse_release(int button, int x, int y, t_all *all)
+{
+	if (all->awin->in_menu == 0)
+	{
+		x = y;
+		if (button == 1)
+			AH->button1 = 0;
+	}
+	return (0);
+}
+
+static int	mouse_clic(int button, int x, int y, t_all *all)
+{
+	if (all->awin->in_menu == 0)
+	{
+		x = y;
+		if (button == 1 && (AH->event = 2))
+			AH->button1 = 1;
+	}
 	return (0);
 }
 
 static int	mouse_motion(int x, int y, t_all *all)
 {
-	int right_side;
-	int left_side;
-	int old_x;
+	int delta;
 
-	right_side = all->WINW; //besoin ?
-	left_side = all->WINW / 2;
-	old_x = AH->mouse_x;
-	AH->mouse_x = x;
-	y = x; // utiliser y pour autre chose.
-	if (AH->mouse_x > old_x)
-		rotate_right(AC, AP);
-	else
-		rotate_left(AC, AP);
-	refresh(all);
+	AH->mouse_y = y;
+	if (all->awin->in_menu == 0)
+	{
+		AH->event = 2;
+		delta = x - AH->mouse_x;
+		if (delta > 150 || delta < -150)
+			AP->coef_motion = 1.5;
+		else if (delta > 60 || delta < -60)
+			AP->coef_motion = 1.3;
+		else if (delta > 30 || delta < -30)
+			AP->coef_motion = 1.1;
+		if (delta > 0)
+			move_player(all, RIGHT);
+		else if (delta < 0)
+			move_player(all, LEFT);
+		else if (delta == 0)
+			AT->anim = 1;
+		AP->coef_motion = 1;
+		AH->mouse_x = x;
+	}
 	return (0);
 }
 
-int		ft_loop(t_all *all)
+int			ft_loop(t_all *all)
 {
-	mlx_hook(all->WIN, 6, (1L << 8), mouse_motion, all);
+	mlx_loop_hook(all->MLX, refresh, all);
 	mlx_hook(all->WIN, 2, (1L << 0), key_press, all);
+	mlx_hook(all->WIN, 4, (1L << 2), mouse_clic, all);
+	mlx_hook(all->WIN, 5, (1L << 3), mouse_release, all);
+	mlx_hook(all->WIN, 6, (1L << 8), mouse_motion, all);
 	mlx_loop(all->MLX);
 	return (0);
 }

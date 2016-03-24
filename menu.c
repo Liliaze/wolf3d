@@ -6,16 +6,16 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:18:08 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/11 15:29:02 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/18 16:38:11 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "wolf3d.h"
+#include "wolf3d.h"
 
 static void	draw_arc(t_win *awin)
 {
-	int	y;
-	int	x;
+	int		y;
+	int		x;
 	double	d;
 	double	e;
 	double	gap;
@@ -72,27 +72,20 @@ static void	draw_str_menu(t_win *awin, t_map *amap)
 			(WINH / 2) - 120, PINK, "WELCOME :D");
 	mlx_string_put(MLX, WIN, (WINW - 132) / 2,
 			WINH / 2 - 90, PINK, "IN MY WOLF3D");
-	mlx_string_put(MLX, WIN, (WINW - 470) / 2, (int)(WINH / 2 - 30), RED,
+	mlx_string_put(MLX, WIN, (WINW - 460) / 2, (int)(WINH / 2 - 30), RED,
 			"=============== ENTER TO START ===============");
 	mlx_string_put(MLX, WIN, (int)(((unsigned long)WINW - ft_strlen(amap->name)
 					* 10) / 2), WINH / 2, YELLOW, amap->name);
-	/*mlx_string_put(MLX, WIN, (WINW - 140) / 2, WINH / 2 + 60, GREEN,
-			"ARROWS to move");
-	mlx_string_put(MLX, WIN, (WINW - 380) / 2, WINH / 2 + 90, GREEN,
-			"'-' or '+' of keypad or MOUSE to zoom");
-	mlx_string_put(MLX, WIN, (WINW - 380) / 2, WINH / 2 + 120, GREEN,
-			"'<' or '>' to change nb of iteration");
-	mlx_string_put(MLX, WIN, (WINW - 230) / 2, WINH / 2 + 150, GREEN,
-			"SPACE to active motion");
-	mlx_string_put(MLX, WIN, (WINW - 290) / 2, WINH / 2 + 180, GREEN,
-			"C to active my special mode");
-	mlx_string_put(MLX, WIN, (WINW - 310) / 2, WINH / 2 + 210, GREEN,
-			"'1', '2', '3' to change power");*/
+	mlx_string_put(MLX, WIN, (WINW - 220) / 2, WINH / 2 + 60, GREEN,
+			"ARROWS or WASD to move");
+	mlx_string_put(MLX, WIN, (WINW - 130) / 2, WINH / 2 + 90, GREEN,
+			"ECHAP to quit");
 }
 
 void		draw_menu(t_win *awin, t_map *amap)
 {
 	awin->in_menu = 1;
+	mlx_clear_window(MLX, WIN);
 	draw_background(awin);
 	draw_arc(awin);
 	draw_str_menu(awin, amap);

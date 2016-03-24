@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 17:43:21 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/09 12:19:08 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/17 18:35:31 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define ORANGE		0x00FFBC00
 # define YELLOW		0x00FFFF00
 # define GREEN		0x0000FF00
-# define GREENF		0x0000FF88
+# define GREENF		0x00BBFFBB
 # define CYAN		0x0033FFFF
 # define BLUE		0x0011AAFF
 # define BLUEF		0x001111FF
