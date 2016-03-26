@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/02 15:35:50 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/24 14:32:19 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/26 19:21:57 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	search_size_box(t_box *abox, t_map *amap)
 	abox->nb_x_box = amap->nb_x + 20;
 	abox->nb_y_box = amap->nb_y + 20;
 	if (!(abox->box = (char **)malloc(sizeof(abox->box) *
-			((unsigned long)abox->nb_y_box + 1))))
+					((unsigned long)abox->nb_y_box + 1))))
 		return (0);
 	while (i < abox->nb_y_box)
 	{
@@ -91,8 +91,8 @@ int			create_skybox(t_box *abox, t_map *amap)
 	if (!search_size_box(abox, amap))
 		display_error("Failed malloc skybox");
 	if (!(fill_box(abox)))
-		display_error("Failed fill skybox");	
+		display_error("Failed fill skybox");
 	if (!(check_box(abox)))
-		display_error("Failed fill skybox");	
+		display_error("Failed fill skybox");
 	return (1);
 }

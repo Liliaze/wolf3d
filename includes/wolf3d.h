@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 17:20:14 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/24 17:33:46 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/26 19:33:51 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <fcntl.h>
 # include <sys/uio.h>
 # include <sys/types.h>
-# include <stdio.h>
 
 # define WIN	awin->win
 # define MLX	awin->mlx

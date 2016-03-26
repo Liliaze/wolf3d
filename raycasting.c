@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:38:17 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/23 18:14:50 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/26 19:28:10 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ static void	draw_height(t_image *aimg, t_win *awin, t_ray *aray, int x)
 	draw_end = (int)(aray->jump + (line_height / 2 + WINH / 2));
 	if (draw_start < 0)
 		draw_start = -1;
-	if (draw_end >= WINH - 4)
-		draw_end = (WINH - 4);
+	if (draw_end >= WINH)
+		draw_end = WINH;
 	x = x * BPP;
 	tmp = (int*)(void*)DATA;
 	while (++draw_start < WINH)

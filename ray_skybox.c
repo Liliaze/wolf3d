@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:38:17 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/24 13:28:47 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/26 19:59:00 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	check_side(t_ray *aray, t_box *abox)
 	return (side);
 }
 
-static void	draw_height(t_ray *aray, t_image *aimg, t_win *awin, t_box *abox, int x)
+static void	draw_height(t_ray *aray, t_image *aimg, t_box *abox, int x)
 {
 	int draw_end;
 	int	pixel;
@@ -77,8 +77,8 @@ static void	draw_height(t_ray *aray, t_image *aimg, t_win *awin, t_box *abox, in
 	if (plop == '1')
 		COLOR = BLUEF;
 	else if (plop == '2')
-		COLOR = BLUE;
-	draw_end = (WINH / 2) + (int)aray->jump;
+		COLOR = BLUEF / 2;
+	draw_end = 650 + (int)aray->jump;
 	x = x * BPP;
 	y = -1;
 	tmp = (int*)(void*)DATA;
@@ -107,7 +107,7 @@ void		ray_skybox(t_all *all)
 		AR->delta_dy = sqrt(1 + (AR->rdx * AR->rdx) / (AR->rdy * AR->rdy));
 		check_distance(AR, AP, AB);
 		side = check_side(AR, AB);
-		draw_height(AR, AI, AWIN, AB, x);
+		draw_height(AR, AI, AB, x);
 		x++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 16:22:13 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/24 16:43:23 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/26 19:19:00 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	rotate_left(t_cam *acam, t_play *aplay)
 	acam->planey = old_planex * sin_rot + acam->planey * cos_rot;
 }
 
-int		move_player(t_all *all, int key)
+int			move_player(t_all *all, int key)
 {
 	if (key == UP || key == W)
 	{

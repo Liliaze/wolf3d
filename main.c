@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 12:22:17 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/24 17:33:38 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/26 19:59:44 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ inline static void	init_struct(t_all *all)
 
 inline static void	init_windows(t_win *awin, t_image *aimg)
 {
-	WINW = 2400;
+	WINW = 2200;
 	WINH = 1200;
-	IMGW = 2400;
+	IMGW = 2200;
 	IMGH = 1200;
 	if ((MLX = mlx_init()) == NULL)
 		display_error("mlx_init() don't turn");

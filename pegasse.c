@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 13:05:46 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/23 18:14:30 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/26 19:58:33 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ void		anim_pegasse(t_win *awin, t_text *atext)
 		frame = 0;
 	if (atext->anim == 1 && (old_anim = 1))
 		mlx_put_image_to_window(MLX, WIN, atext->peg[frame],
-				(WINW / 2 - 25), WINH - 100 );
+				(WINW / 2 - 25), WINH - 80);
 	else if (atext->anim == 2 && (old_anim = 2))
 		mlx_put_image_to_window(MLX, WIN, atext->peg[frame + 4],
-				(WINW / 2 - 25), WINH - 100 );
+				(WINW / 2 - 25), WINH - 80);
 	else if (atext->anim == 3 && (old_anim = 3))
 		mlx_put_image_to_window(MLX, WIN, atext->peg[frame + 8],
-				(WINW / 2 - 25), WINH - 100 );
+				(WINW / 2 - 25), WINH - 80);
 	else if (atext->anim == 4 && (old_anim = 4))
 		mlx_put_image_to_window(MLX, WIN, atext->peg[frame + 12],
-				(WINW / 2 - 25), WINH - 100 );
+				(WINW / 2 - 25), WINH - 80);
 	frame++;
 }
