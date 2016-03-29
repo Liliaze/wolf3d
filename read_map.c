@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 15:02:06 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/24 12:53:38 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/29 13:14:19 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,26 @@ static void	check_map(t_map *amap)
 	int x;
 	int tmp;
 
-	y = 0;
+	y = -1;
 	x = 0;
 	tmp = 0;
-	while (amap->map[y])
+	while (amap->map[++y])
 	{
-		x = 0;
-		while (amap->map[y][x])
+		x = -1;
+		while (amap->map[y][++x])
 		{
 			tmp = ft_atoi(amap->map[y][x]);
-			if ((y == 0 || y == amap->nb_y - 1 || x == 0
-						|| x == amap->nb_x - 1) && tmp <= 0)
-				display_error("Map invalid, need border");
+			if ((y == 0 || x == 0) && tmp <= 0)
+				display_error("Map invalid, to need border");
 			if (!(tmp >= 0 && tmp <= 10))
 				display_error("Invalid data in map");
-			x++;
+			if (tmp == 5)
+				amap->goal = 1;
 		}
-		y++;
+		if (tmp <= 0)
+			display_error("Map invalid, to need border");
+		if (x != amap->nb_x)
+			display_error("Map invalid, lines need to be same widht");
 	}
 }
 

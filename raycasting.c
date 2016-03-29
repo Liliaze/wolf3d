@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:38:17 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/23 18:14:50 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/29 14:52:35 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,13 @@ static void	choose_color(t_image *aimg, t_map *map, int *side)
 	if (tmp == 1)
 		COLOR = PINK;
 	else if (tmp == 2)
-		COLOR = RED;
+		COLOR = SALMON;
 	else if (tmp == 3)
 		COLOR = PURPLE;
 	else if (tmp == 4)
 		COLOR = ORANGE;
+	else if (tmp == 5)
+		COLOR = BLACK;
 	else
 		COLOR = YELLOW;
 	if (*side == 1)
@@ -59,9 +61,14 @@ static int	check_side(t_ray *aray, t_map *map)
 {
 	int	hit;
 	int	side;
+	int tmp;
 
 	hit = 0;
 	side = 0;
+	if (map->lave == 2)
+		map->lave = 0;
+	else if (map->lave == 1)
+		map->lave = 2;
 	while (hit == 0 && side != -1)
 	{
 		if (aray->side_dx < aray->side_dy)
@@ -76,10 +83,40 @@ static int	check_side(t_ray *aray, t_map *map)
 			map->mapy += aray->stepy;
 			side = 1;
 		}
-		if (ft_atoi(map->map[map->mapx][map->mapy]) > 0)
+		tmp = ft_atoi(map->map[map->mapx][map->mapy]);
+		if (tmp == 6 && map->lave != 2)
+			map->lave = 1;
+		if ((tmp > 0 && tmp != 6) || (tmp == 6 && map->lave == 2))
 			hit = 1;
 	}
 	return (side);
+}
+
+static void	draw_lave(t_image *aimg, t_win *awin, t_ray *aray, int x)
+{
+	int draw_end;
+	int draw_start;
+	int line_height;
+	int	pixel;
+	int *tmp;
+
+	line_height = abs((int)(WINH / aray->h_wall));
+	draw_start = (int)(aray->jump + ((-line_height / 2 + WINH / 2) - 1));
+	draw_end = (int)(aray->jump + (line_height / 2 + WINH / 2));
+	draw_start = draw_end - 20;
+	x = x * BPP;
+	tmp = (int*)(void*)DATA;
+	if (draw_start < WINH)
+	{
+		while (++draw_start < draw_end)
+		{
+			pixel = x + draw_start * SIZE_L;
+			if ((draw_start + x) % 2)
+				tmp[pixel] = RED;
+			else
+				tmp[pixel] = ORANGE;
+		}
+	}
 }
 
 static void	draw_height(t_image *aimg, t_win *awin, t_ray *aray, int x)
@@ -95,8 +132,8 @@ static void	draw_height(t_image *aimg, t_win *awin, t_ray *aray, int x)
 	draw_end = (int)(aray->jump + (line_height / 2 + WINH / 2));
 	if (draw_start < 0)
 		draw_start = -1;
-	if (draw_end >= WINH - 4)
-		draw_end = (WINH - 4);
+	if (draw_end >= WINH)
+		draw_end = WINH;
 	x = x * BPP;
 	tmp = (int*)(void*)DATA;
 	while (++draw_start < WINH)
@@ -116,7 +153,8 @@ void		raycasting(t_all *all)
 
 	x = -1;
 	side = 0;
-	while (++x < all->WINW)
+	AM->lave = 0;
+	while (x < all->WINW)
 	{
 		AC->camx = (2 * x / (double)(all->WINW)) - 1;
 		AR->rdx = AP->dirx + AC->planex * AC->camx;
@@ -130,10 +168,15 @@ void		raycasting(t_all *all)
 		choose_color(AI, AM, &side);
 		if (side == 0)
 			AR->h_wall = fabs((AM->mapx - AP->posx + (1 - AR->stepx) / 2)
-				/ AR->rdx);
+					/ AR->rdx);
 		else if (side == 1)
 			AR->h_wall = fabs((AM->mapy - AP->posy + (1 - AR->stepy) / 2)
-				/ AR->rdy);
-		draw_height(AI, AWIN, AR, x);
+					/ AR->rdy);
+		if (AM->lave == 1 || AM->lave == 0)
+			draw_height(AI, AWIN, AR, x);
+		else if (AM->lave == 2)
+			draw_lave(AI, AWIN, AR, x);
+		if (AM->lave != 1)
+			x++;
 	}
 }

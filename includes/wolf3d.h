@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 17:20:14 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/24 17:33:46 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/29 14:52:38 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <fcntl.h>
 # include <sys/uio.h>
 # include <sys/types.h>
-# include <stdio.h>
 
 # define WIN	awin->win
 # define MLX	awin->mlx
@@ -73,6 +72,8 @@ typedef struct	s_map
 {
 	char		***map;
 	char		*name;
+	int			goal;
+	int			lave;
 	int			nb_x;
 	int			nb_y;
 	int			mapy;

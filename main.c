@@ -6,7 +6,7 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 12:22:17 by dboudy            #+#    #+#             */
-/*   Updated: 2016/03/24 17:33:38 by dboudy           ###   ########.fr       */
+/*   Updated: 2016/03/29 13:10:33 by dboudy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ inline static void	init_struct(t_all *all)
 
 inline static void	init_windows(t_win *awin, t_image *aimg)
 {
-	WINW = 2400;
+	WINW = 2200;
 	WINH = 1200;
-	IMGW = 2400;
+	IMGW = 2200;
 	IMGH = 1200;
 	if ((MLX = mlx_init()) == NULL)
 		display_error("mlx_init() don't turn");
@@ -62,10 +62,10 @@ inline static void	init_pos_x_y(t_map *amap, t_play *aplay)
 	}
 	if (tmp != 0)
 		display_error("The map has to contains at least one '0'");
-	else if (amap->map[y + 1][x + 1] && (ft_atoi(amap->map[y + 1][x + 1])) == 0)
+	else if (amap->map[y + 2][x + 2] && (ft_atoi(amap->map[y + 2][x + 2])) == 0)
 	{
-		aplay->posx = x + 1;
-		aplay->posy = y + 1;
+		aplay->posx = x + 2;
+		aplay->posy = y + 2;
 	}
 	else
 	{
