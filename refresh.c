@@ -6,7 +6,11 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 14:34:01 by dboudy            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2016/03/29 14:45:09 by dboudy           ###   ########.fr       */
+=======
+/*   Updated: 2016/03/26 19:44:18 by dboudy           ###   ########.fr       */
+>>>>>>> 68fcb7eeb39e033ad1f9630a5fbef56c9a42ae90
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +62,14 @@ int			refresh(t_all *all)
 {
 	static double old_time = 1;
 
+<<<<<<< HEAD
 	if (AM->goal == 2 || AM->goal == 3)
 	{
 		draw_menu(AWIN, AM);
 		AM->goal = 0;
 	}
+=======
+>>>>>>> 68fcb7eeb39e033ad1f9630a5fbef56c9a42ae90
 	if (all->awin->in_menu == 0)
 	{
 		if (AH->event == 1)

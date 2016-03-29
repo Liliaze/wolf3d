@@ -6,7 +6,11 @@
 /*   By: dboudy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:18:08 by dboudy            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2016/03/29 14:45:07 by dboudy           ###   ########.fr       */
+=======
+/*   Updated: 2016/03/26 19:58:30 by dboudy           ###   ########.fr       */
+>>>>>>> 68fcb7eeb39e033ad1f9630a5fbef56c9a42ae90
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +76,7 @@ static void	draw_str_menu(t_win *awin, t_map *amap)
 			(WINH / 2) - 120, PINK, "WELCOME :D");
 	mlx_string_put(MLX, WIN, (WINW - 120) / 2,
 			WINH / 2 - 90, PINK, "IN MY WOLF3D");
+<<<<<<< HEAD
 	mlx_string_put(MLX, WIN, (int)(((unsigned long)WINW - ft_strlen(amap->name)
 					* 10) / 2), WINH / 2 - 30, ORANGE, amap->name);
 	mlx_string_put(MLX, WIN, (WINW - 540) / 2, WINH / 2, RED,
@@ -115,6 +120,23 @@ static void	draw_succes(t_win *awin)
 	mlx_string_put(MLX, WIN, (WINW - 230) / 2, (int)(WINH / 2 + 120), YELLOW,
 			":) ENTER TO CONTINUE :)");
 	mlx_string_put(MLX, WIN, (WINW - 130) / 2, WINH / 2 + 300, GREY,
+=======
+	mlx_string_put(MLX, WIN, (WINW - 540) / 2, (int)(WINH / 2 - 30), RED,
+			"================= * ENTER TO START * =================");
+	mlx_string_put(MLX, WIN, (int)(((unsigned long)WINW - ft_strlen(amap->name)
+					* 10) / 2), WINH / 2, ORANGE, amap->name);
+	mlx_string_put(MLX, WIN, (WINW - 220) / 2, WINH / 2 + 60, GREEN,
+			"ARROWS or WASD to Move");
+	mlx_string_put(MLX, WIN, (WINW - 350) / 2, WINH / 2 + 90, GREEN,
+			"Use + or - of keypad to change SPEED");
+	mlx_string_put(MLX, WIN, (WINW - 170) / 2, WINH / 2 + 120, GREEN,
+			"SPACE to Fly Away");
+	mlx_string_put(MLX, WIN, (WINW - 120) / 2, WINH / 2 + 150, GREEN,
+			"Z to Go Down");
+	mlx_string_put(MLX, WIN, (WINW - 280) / 2, WINH / 2 + 210, YELLOW,
+			"You can play with only MOUSE");
+	mlx_string_put(MLX, WIN, (WINW - 130) / 2, WINH / 2 + 270, GREEN,
+>>>>>>> 68fcb7eeb39e033ad1f9630a5fbef56c9a42ae90
 			"ECHAP to Quit");
 }
 
